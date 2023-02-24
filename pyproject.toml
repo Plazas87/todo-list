@@ -1,15 +1,17 @@
 [tool.poetry]
-name = "todo-list"
+name = "todo_list"
 version = "0.1.0"
 description = ""
 authors = ["Andres Plazas <apr@certainly.io>"]
 readme = "README.md"
-packages = [{include = "todo_list", from = "src"}]
+packages = [{include = "todo_list", from = "src/django_framework"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
 django = "^4.1.7"
 django-stubs = "^1.15.0"
+django-extensions = "^3.2.1"
+psycopg2-binary = "^2.9.5"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -20,6 +22,57 @@ isort = "^5.12.0"
 black = "^23.1.0"
 pylint = "^2.16.2"
 pre-commit = "^3.1.0"
+
+[tool.black]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | \.vscode
+  | \.pytest_cache
+  | build
+  | dist
+  | notebooks
+)/
+'''
+
+[tool.isort]
+profile = "black"
+skip = [
+    ".gitignore",
+    ".dockerignore",
+    ".vscode",
+    ".venv",
+    ".pytest_cache"
+]
+skip_gitignore = true
+extend_skip = [".md", ".json", ".lock", ".ini"]
+extend_skip_glob = ["notebooks/*"]
+src_paths = ["src"]
+
+[tool.mypy]
+python_version = 3.8
+check_untyped_defs = true
+ignore_missing_imports = true
+strict_optional = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+follow_imports = "skip"
+plugins = [
+  "mypy_django_plugin.main",
+]
+
+[tool.django-stubs]
+django_settings_module = "certainly_synapse_kb.settings.base"
+
+["tool.mypy.migrations.*"]
+# Django migrations should not produce any errors:
+ignore_errors = true
 
 [build-system]
 requires = ["poetry-core"]

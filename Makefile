@@ -62,7 +62,7 @@ docker_shell:
 initdb:
 	docker run -d --name todo_list_db \
 		-v todo_list_data:/var/lib/postgresql/data \
-		-p 5432:5432 \
+		-p 5436:5432 \
 		-e POSTGRES_HOST_AUTH_METHOD=trust \
 		postgres:14
 
@@ -144,7 +144,7 @@ start-production:
 # target: test - Run tests
 .PHONY: test
 test:
-	poetry run pytest --cov=src/todo_list --junitxml=junit/test-results.xml --cov-report=xml \
+	poetry run pytest --cov=src --junitxml=junit/test-results.xml --cov-report=xml \
 		--cov-report=html --cov-report=term tests
 
 # target: coverage - Open the HTML report in the browser
