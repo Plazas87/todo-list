@@ -1,0 +1,37 @@
+[run]
+branch = True
+omit =
+    src/certainly_synapse_kb/apps/**/migrations/*.py,
+    src/certainly_synapse_kb/**/urls.py,
+    src/certainly_synapse_kb/asgi.py,
+    src/certainly_synapse_kb/wsgi.py,
+    src/certainly_synapse_kb/manage.py,
+    src/certainly_synapse_kb/settings/**/*.py,
+    src/certainly_synapse_kb/kb_etl/**
+
+[report]
+# Regexes for lines to exclude from consideration
+exclude_lines =
+    # Have to re-enable the standard pragma
+    pragma: no cover
+
+    # Don't complain about missing debug-only code:
+    def __repr__
+    def __str__
+    if self\.debug
+
+    # Don't complain if tests don't hit defensive assertion code:
+    raise AssertionError
+    raise NotImplementedError
+
+    # Don't complain if non-runnable code isn't run:
+    if 0:
+    if __name__ == .__main__.:
+
+    # Don't complain about abstract methods, they aren't run:
+    @(abc\.)?abstractmethod
+
+ignore_errors = True
+
+[html]
+directory = htmlcov
